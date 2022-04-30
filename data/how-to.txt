@@ -1,0 +1,8 @@
+The data directory will be ignored due to file size limitations. 
+Follow the following steps to work with this project's data:
+
+1. Locally, create the following subdirectories:
+data/raw
+data/clean
+
+2. From the Box (link in README), download files to their respective subdirectories

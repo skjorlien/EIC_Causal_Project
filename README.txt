@@ -1,9 +1,15 @@
-README 
+**************************************
+DATA GATHERING 
+**************************************
+Box Link: https://utexas.app.box.com/folder/162059819706
 
-**************************************
-DATA 
-**************************************
 SEER Census Data:
     # Original txt file downloaded from: https://seer.cancer.gov/popdata/download.html
     # Data code available from: https://seer.cancer.gov/popdata/popdic.html
-    # txt processed to csv using Python/parse_census_seer_txt_to_csv.py -> raw/SEER/census.csv
+    # txt processed to csv using Python/parse_census_seer_txt_to_csv.py -> data/raw/SEER/census.csv
+    
+    
+Poverty Data: 
+    # Annual Poverty Status Data manually downloaded from: https://data.census.gov/cedsci/table?q=Poverty&g=0100000US%240400000&tid=ACSST1Y2010.S1701
+    # cleaned using R/clean/clean_pov.R -> data/clean/poverty_rates.csv
+    # subselected age groupings for poverty data, but the raw includes sex, race, employment status, work experience
