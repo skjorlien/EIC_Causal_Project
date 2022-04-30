@@ -4,6 +4,12 @@
 # Description: 
 #   take the census csv, and aggregate populations by state, year, race, sex, and age group.
 #   output a csv with the aggregated data
+#
+# TODO: Figure out what age groupings you want to work with 
+# aggregate the age groups by 
+# 1. creating a new column "age_group", 
+# 2. Assign a group name using 'case when'
+# 3. Aggregate on that in the group_by instead of 'age'
 ##############################################
 rm(list=ls())
 
