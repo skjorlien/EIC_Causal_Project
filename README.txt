@@ -1,7 +1,7 @@
 **************************************
 DATA GATHERING 
 **************************************
-All data stored in Box, copy the box file structure locally for everything to work.
+All data stored in Box, copy the box file structure locally for everything to work. See "how-to" in data folder
 Box Link: https://utexas.app.box.com/folder/162059819706
 
 SEER Census Data:
@@ -13,4 +13,4 @@ SEER Census Data:
 Poverty Data: 
     # Annual Poverty Status Data manually downloaded from: https://data.census.gov/cedsci/table?q=Poverty&g=0100000US%240400000&tid=ACSST1Y2010.S1701
     # cleaned using R/clean/clean_pov.R -> data/clean/poverty_rates.csv
-    # subselected age groupings for poverty data, but the raw includes sex, race, employment status, work experience
+    # I selected age groupings for poverty data, but the raw includes sex, race, employment status, work experience
