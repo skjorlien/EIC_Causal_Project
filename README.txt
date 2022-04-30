@@ -1,6 +1,7 @@
 **************************************
 DATA GATHERING 
 **************************************
+All data stored in Box, copy the box file structure locally for everything to work.
 Box Link: https://utexas.app.box.com/folder/162059819706
 
 SEER Census Data:
