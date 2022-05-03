@@ -27,23 +27,30 @@ Box Link: https://utexas.app.box.com/folder/162059819706
     38 states have some form of EITC, 25 of them just give you that money. 
     effect of EITC on poverty rates: 
 
-### a note on vars
-    Dependent vars: 
+### A Note on Vars
+    *Dependent vars:*
     poverty rates (3 different groups and state totals)
     labor force participation
 
-    Policy var:
+    *Policy var:*
     dummy implemented or not.
 
-    controls: 
+    *controls:* 
     density
     demographics
     GDP per capita
     Lott & Mustard RPCs
 
-## Next Steps?
+## Next Steps: 
+ ### Scott:
+ - Get that data (check out iPUMS for poverty, labor force participation)
+ 
+ ### Brandon:
+ - Do that Lit Review
+
+
+## Wish List? 
  - If this project yields interesting results neat: Augmented Synthetic Control Ridge ASCM
  - 
 
-check out iPUMS for poverty, labor force participation
 
