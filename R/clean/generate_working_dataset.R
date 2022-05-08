@@ -3,7 +3,9 @@
 rm(list=ls())
 
 ## Demographics
-out.df <- read_csv(here("data/clean/population.csv")) 
+out.df <- read_csv(here("data/clean/population.csv")) %>% 
+  mutate(across(contains("pop_"), ~ .x / population))
+
 
 ## GDP
 tdf <- read_csv(here("data/clean/state_gdp.csv"))
