@@ -47,7 +47,7 @@ for line in txt_file:
 
 
 # save the list of dicts as csv
-with open('census.csv', 'w', newline='') as output_file:
+with open('demographics.csv', 'w', newline='') as output_file:
     dict_writer = csv.DictWriter(output_file, fout[0].keys())
     dict_writer.writeheader()
     dict_writer.writerows(fout)

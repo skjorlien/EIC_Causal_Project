@@ -5,18 +5,34 @@
 #   take the census csv, and aggregate populations by state, year, race, sex, and age group.
 #   output a csv with the aggregated data
 #
-# TODO: Figure out what age groupings you want to work with 
-# aggregate the age groups by 
-# 1. creating a new column "age_group", 
-# 2. Assign a group name using 'case when'
-# 3. Aggregate on that in the group_by instead of 'age'
 ##############################################
 rm(list=ls())
 
-df <- read_csv(here("data/raw/SEER/census.csv")) %>% 
-  mutate(pop = as.numeric(pop)) %>% 
-  group_by(year, state, race, sex, age) %>% 
-  summarize(pop = sum(pop)) %>% 
+df <- read_csv(here("data/raw/SEER/demographics.csv")) %>% 
+  mutate(pop = as.numeric(pop), 
+    age_group = case_when(
+      age == "00" ~ "U20",
+      age == "01" ~ "U20",
+      age == "02" ~ "U20",
+      age == "03" ~ "U20",
+      age == "04" ~ "U20",
+      age == "05" ~ "20-64",
+      age == "06" ~ "20-64",
+      age == "07" ~ "20-64",
+      age == "08" ~ "20-64",
+      age == "09" ~ "20-64",
+      age == "10" ~ "20-64",
+      age == "11" ~ "20-64",
+      age == "12" ~ "20-64",
+      age == "13" ~ "20-64",
+      age == "14" ~ "65o",
+      age == "15" ~ "65o",
+      age == "16" ~ "65o",
+      age == "17" ~ "65o",
+      age == "18" ~ "65o"
+  )) %>% 
+  group_by(year, state, sfip, race, sex, age_group) %>% 
+  summarize(pop = sum(pop))%>% 
   mutate(sex = case_when(
       sex == 1 ~ "m",
       sex == 2 ~ "f"
@@ -25,29 +41,10 @@ df <- read_csv(here("data/raw/SEER/census.csv")) %>%
       race == 1 ~ "w",
       race == 2 ~ "b",
       race == 3 ~ "n"
-    ),
-    age = case_when(
-      age == "00" ~ "0",
-      age == "01" ~ "1-4",
-      age == "02" ~ "5-9",
-      age == "03" ~ "10-14",
-      age == "04" ~ "15-19",
-      age == "05" ~ "20-24",
-      age == "06" ~ "25-29",
-      age == "07" ~ "30-34",
-      age == "08" ~ "35-39",
-      age == "09" ~ "40-44",
-      age == "10" ~ "45-49",
-      age == "11" ~ "50-54",
-      age == "12" ~ "55-59",
-      age == "13" ~ "60-64",
-      age == "14" ~ "65-69",
-      age == "15" ~ "70-74",
-      age == "16" ~ "75-79",
-      age == "17" ~ "80-84",
-      age == "18" ~ "85o"
     )) %>% 
-  pivot_wider(id_cols = c(year, state), names_from = c(race, sex, age), 
-              names_prefix = "pop_", values_from = pop) %>% 
+  pivot_wider(id_cols = c(year, state, sfip), names_from = c(race, sex, age_group), 
+              names_prefix = "pop_", values_from = pop)  %>% 
+  filter(year >= 2007) %>% 
+  rowwise() %>% 
+  mutate(population = sum(c_across(contains("pop")))) %>% 
   write_csv(here("data/clean/population.csv"))
-
