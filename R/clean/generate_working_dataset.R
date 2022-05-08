@@ -47,5 +47,14 @@ out.df <- out.df %>%
   mutate(density = population/state_area) %>%
   filter(sfip != 11)
 
+## join EITC info
+tdf <- read_csv(here("data/clean/eitc_by_state.csv")) %>% 
+  slice(1:51) %>% 
+  select(state:eitc, -year_enacted)
+
+out.df <- out.df %>% 
+  left_join(tdf)
+  
+
 write_csv(out.df, here("data/clean/working_data.csv"))
 
