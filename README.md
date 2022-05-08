@@ -8,14 +8,37 @@ Box Link: https://utexas.app.box.com/folder/162059819706
 
 - Original txt file downloaded from [SEER](https://seer.cancer.gov/popdata/download.html)
 - Data code available from: [SEER Data Dict](https://seer.cancer.gov/popdata/popdic.html)
-- txt processed to csv using Python/parse_census_seer_txt_to_csv.py -> data/raw/SEER/census.csv
+- txt processed to csv using Python/parse_census_seer_txt_to_csv.py -> data/raw/SEER/demographics.csv
 - CSV cleaned & aggregated to state level using R/clean/clean_census.R -> data/clean/population.csv
     
-### Poverty Rate Data: 
+### Poverty Rate Data & Labor Force participation: 
 
-- Annual Poverty Status Data manually downloaded from [Census Poverty Survey](https://data.census.gov/cedsci/table?q=Poverty&g=0100000US%240400000&tid=ACSST1Y2010.S1701)
-- cleaned using R/clean/clean_pov.R -> data/clean/poverty_rates.csv
-- I selected age groupings for poverty data, but the raw includes sex, race, employment status, work experience
+- Scraped ACS data via Census API using Python/scrape_census.py
+- Cleaned data/raw/census_scrape/census_scrape_poverty_labor.csv -> data/clean/povlab.csv
+- **Note: labor force participation limited to 2007 data**
+
+### Real Per Capita Income & GDP
+- Scraped from BEA using Python/scrape_bea.py -> data/raw/BEA/ real_gdp.csv, real_inc_per_cap.csv
+- Cleaned real_inc_per_cap.csv -> data/clean/personal_income.csv
+- Cleaned real_gdp.csv -> data/clean/state_gdp.csv
+
+## Script Order:
+### Prerequisites: 
+- raw/SEER must have the seer_census.txt file
+
+### Scrapers
+- python/scrape_bea.py
+- python/scrape_census.py
+
+### Cleaners
+- python/parse_census_seer_to_csv.py **must go first**
+- R/clean/clean_census.R
+- R/clean/clean_gdp.R
+- R/clean/clean_personal_income.R
+- R/clean/clean_povlab.R
+
+### Aggregators
+- R/clean/generate_working_dataset.R
 
 ## Chat about the project 
 ### Brandon's Summary:
@@ -33,22 +56,27 @@ effect of EITC on poverty rates:
 ### A Note on Vars
 
 *Dependent vars:*
-poverty rates (3 different groups and state totals)
-labor force participation
+poverty rates (DONE)
+labor force participation (DONE)
 
 *Policy var:*
-dummy implemented or not.
+dummy implemented or not... is this even necessary? No but in some cases your control is
+treated states and in some cases your control is untreated. 
 
 *controls:* 
-density
-demographics
-GDP per capita
-Lott & Mustard RPCs
+density (DONE)
+demographics (DONE)
+GDP per capita (DONE)
+Lott & Mustard RPCs 
+- rpcpi - real per capita Personal Income (DONE)
+- rpcim - real per capita Income Maintenance 
+- rpcui - real per capita Unemployment insurance
+- rpcpo - real per capita retirement payments per person over 65
 
 ## Next Steps: 
  ### Scott:
 
-- Get that data (check out iPUMS for poverty, labor force participation)
+- Join working_dataset.csv with brandon's file on EITC
 
  ### Brandon:
 
