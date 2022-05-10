@@ -40,6 +40,10 @@ Box Link: https://utexas.app.box.com/folder/162059819706
 ### Aggregators
 - R/clean/generate_working_dataset.R
 
+### Analysis: 
+All the magic happens in: R/output/synthetic_control.R
+
+
 ## Chat about the project 
 ### Brandon's Summary:
 
