@@ -1,0 +1,103 @@
+\documentclass{article}
+
+% these packages let you do math
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% we need these packages for fancy R tables
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{lscape}
+
+
+% these packages play with the spacing/margins of the document. Uncomment the commands on lines 16 and 17 to see what they do.
+\usepackage{a4wide}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{parskip}
+%\doublespacing
+\geometry{margin=1.5in}
+
+% this package helps us with including images. Setting the graphics path makes it easier to refer to things in the \includegraphics command.
+\usepackage{graphicx}
+\usepackage{subfig}
+\graphicspath{ {../figures/final_figures} }
+
+% make some hyperlinks using the \href command
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue, 
+    citecolor=blue
+}
+
+%citations
+\usepackage{cite}
+\usepackage{natbib}
+\usepackage{apalike}
+
+% set the author, title, and date of the document. \maketitle adds it to the document.
+\author{Brandon Williams and Scott Kjorlien}
+\title{Synthetic Control for State-Level EITCs Impact on Poverty and Labor}
+\date{Spring 2022}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+The federal Earned Income Tax Credit (EITC) is a tax credit that is designed to benefit workers earning relatively low wages. The program was created in the 1970s with a dual purpose: encourage families in poverty to enter the workforce and reduce the tax burdens for low-wage working families with children. Since then, the EITC has been expanded and increased several times, becoming a significant anti-poverty measure. Some estimates suggest that the EITC has lifted more children out of poverty than any other government program  \citep{zahradnik2004state}. In 2020, the IRS reported that 25 million workers received over \$60 million in EITC credits, with the average amount being \$2,411 per family. The American Rescue Plan of 2021 further leveraged the EITC as a main means of fighting poverty in the wake of the COVID-19 pandemic by expanding the credit for childless workers and increasing income limits, indicating just how important it has become in the policymaker’s anti-poverty arsenal.
+
+In the wake of the federal EITC and its various expansions, more than 25 states have adopted their own state-level EITCs to supplement low-income earners at the local level. While much economic literature has focused on this tool at the federal level, very few papers have examined state EITCs. We exploit two major changes in the last ten years to examine how changes in a state EITC affects poverty rate and labor force participation: namely, the elmination of North Carolina's EITC in 2014 and the creation of California's EITC in 2015. 
+
+\section{Literature}
+
+The EITC is designed to “phase in” beginning with the first dollars a worker earns. In 2019, a married couple with two children had a phase-in rate of 40 percent, meaning that the EITC increases by 40 cents for each dollar earned. At a certain income threshold, the EITC plateaus at a maximum amount, where it stays constant even as the worker’s income increases. Finally, it reaches a “phase out” period, where the EITC amount reduces as a percentage of the worker’s income until it eventually reaches zero. In 2019, this phase-out ended for childless earners at \$15,570, \$41,094 for those with on child, \$46,703 for those with two children, and so on. This creates an acute trapezoid shape to the credit that increases and decreases proportionally with income. 
+
+ \begin{figure}[H]
+    \caption{Bacon Decomposition for Violent Crime Estimator}
+    \begin{center}
+        \includegraphics[width=.85\textwidth]{}
+    \end{center}
+    \label{fig:graph}
+\end{figure}
+
+Proponents of the EITC generally argue that it avoids the adverse incentives of other traditional welfare programs by encouraging workforce participation while simultaneously targeting low-income earners. Economic theory would suggest that the EITC would be especially pronounced at the point of entry for the labor supply, encouraging those on the sidelines to enter the workforce because it rewards earnings and gives no payout if the tax filer is not in the labor force. \cite{eissa2006behavioral} EITCs also avoid the mired debates about the minimum wage by increasing earnings for workers without shifting the cost to employers. In short, EITCs gain support from a diverse coalition of policymakers for their intentions to raise the earned income of low-wage individuals and families. \\
+\\
+Because of the dual-pronged motivation of the EITC, most economists have been interested in studying the effects on poverty and labor supply. While the causal effects of the federal program can be difficult to discern, Neumark and Wascher \cite{neumark2001using} found that the EITC effectively raised a small number of households above the poverty line and positively increased the labor supply rate, particularly at the point of labor entry, finding it to be a more effective intervention than the minimum wage. \\
+\\
+Because of the trapezoidal shape of the policy, economic theory would suggest that it also creates natural “kink points” in the earned income of workers. Saez \cite{saez2010taxpayers} finds some evidence that workers bunch at the phase-out kink point, but very little evidence that workers choose to reduce hours during the phase-in period. Meanwhile, since the EITC does not provide any benefit to individuals who are not working, it should have a direct impact on labor force participation decisions at the extensive margin (the decision to enter the workforce), but others have argued that the effect at the margins is negligible. \cite{kleven2019eitc}. Given that the EITC is built directly into the tax policy, there is also some evidence that the incentives are obfuscated by the complicated nature of tax season. \cite{chetty2013teaching}
+
+While the EITC is available to single filers without children, the benefits afforded to those workers are relatively modest compared to the credit given to workers with dependents. Therefore, much of the literature has focused on the effects on low-income families, especially single mothers. Evans and Garthwaite found that indicators of health and self-reported well-being of single mothers both increased with the expansion of the federal credit in 1993. \cite{ evans2014giving} Other papers have explored the EITC’s effect on birth rates. \cite{baughman2003did}
+
+State-level EITC’s generally function as a proportion of the federal credit, with a few exceptions (for example, Washington state has flat dollar amounts depending on household size). Amounts of state EITC vary significantly, from 5\% of the federal EITC amount (Louisiana) to 45\% (Maryland). We focus on the state-level EITCs that are refundable, meaning that even if a filer has no tax liability, they still receive a credit, effectively making their net tax amount negative. While some states offer non-refundable EITCs (meaning they can use the credit only to reduce their tax burden), we concentrate on the EITCs which function as a proper government cash transfer. All told, 23 states and the District of Columbia currently offer a state-level refundable EITC, and an additional 6 currently offer a non-refundable EITC.
+
+[Table on states with EITC available]
+
+While there is substantial research on the federal Earned Income Tax Credits, literature on the state-level EITCs is much sparser. One study found some evidence that state EITCs improved child health in those states. \cite{baughman2012effects} Others have looked at the relationship between state EITCs and suicide \cite{lenhart2019effects} and how to increase uptake of state-level EITC credits \cite{linos2020can}. 
+
+In 2014, North Carolina eliminated its state-level EITC, the only state to do so in over 30 years. \cite{wunc} At the time, 22 percent of North Carolina residents claimed the benefit. The modest benefit was set at 5\% of the federal EITC. Conversely, in 2015, California created and implemented its first state EITC (CalEITC). This policy used thresholds independent of the federal EITC, with CalEITC credits available up to \$3,160 for a family with three children (nearly half of the available federal EITC credit at that level). How do these two policies affect labor force participation and poverty in their respective states? 
+
+The Public Policy Institute of California estimates that in the first year of creation, the CalEITC was claimed by 14\% of households in the state, with more than 90\% of claimants having dependent children. They also estimate that without both state and federal EITCs, 840,000 more Californians would be in poverty, including an estimated 376,000 children.  
+
+
+\section{Data}
+
+
+\section{Methodology}
+
+
+\section{Results}
+
+
+
+\section{Conclusions}
+
+\bibliography{bib}{}
+\bibliographystyle{apalike}
+
+\end{document}
