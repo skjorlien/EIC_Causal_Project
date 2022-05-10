@@ -11,6 +11,7 @@ librarian::shelf(
   here,
   kableExtra,
   tidycensus,
+  tidysynth,
   rlang,
   ggthemes,
   tidyverse,

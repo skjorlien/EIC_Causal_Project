@@ -57,6 +57,10 @@ tdf <- read_csv(here("data/clean/eitc_by_state.csv")) %>%
 out.df <- out.df %>% 
   left_join(tdf)
   
+out.df <- out.df %>% 
+  mutate(ca_model = ifelse((eitc == 0 | state == "California") & state != "North Carolina", 1, 0),
+         nc_model = ifelse((eitc == 1 | state == "North Carolina") & state != "California", 1, 0))
+
 
 write_csv(out.df, here("data/clean/working_data.csv"))
 
