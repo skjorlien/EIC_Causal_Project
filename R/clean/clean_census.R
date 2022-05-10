@@ -16,15 +16,15 @@ df <- read_csv(here("data/raw/SEER/demographics.csv")) %>%
       age == "02" ~ "U20",
       age == "03" ~ "U20",
       age == "04" ~ "U20",
-      age == "05" ~ "20-64",
-      age == "06" ~ "20-64",
-      age == "07" ~ "20-64",
-      age == "08" ~ "20-64",
-      age == "09" ~ "20-64",
-      age == "10" ~ "20-64",
-      age == "11" ~ "20-64",
-      age == "12" ~ "20-64",
-      age == "13" ~ "20-64",
+      age == "05" ~ "WA",
+      age == "06" ~ "WA",
+      age == "07" ~ "WA",
+      age == "08" ~ "WA",
+      age == "09" ~ "WA",
+      age == "10" ~ "WA",
+      age == "11" ~ "WA",
+      age == "12" ~ "WA",
+      age == "13" ~ "WA",
       age == "14" ~ "65o",
       age == "15" ~ "65o",
       age == "16" ~ "65o",
@@ -43,7 +43,7 @@ df <- read_csv(here("data/raw/SEER/demographics.csv")) %>%
       race == 3 ~ "n"
     )) %>% 
   pivot_wider(id_cols = c(year, state, sfip), names_from = c(race, sex, age_group), 
-              names_prefix = "pop_", values_from = pop)  %>% 
+              names_sep="", names_prefix = "pop_", values_from = pop)  %>% 
   filter(year >= 2007) %>% 
   rowwise() %>% 
   mutate(population = sum(c_across(contains("pop")))) %>% 

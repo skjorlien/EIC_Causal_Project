@@ -1,0 +1,124 @@
+##################################
+# Author: Scott Kjorlien
+# Date: 5/9/2022
+# Description: 
+#     Implementation of the tidysynth package for this project
+#     Wrote the following helper functions:
+#       generate_mean_predictors takes a list of variable names (as strings) 
+#               and outputs a synth with those predictors built in
+#       generate_lab_predictors takes a list of variables names with the structure "var_year"
+#               the year is the lag reference. outputs a synth with those predictors built in
+#       synth.out build the synthetic control model
+#       generate_synth switches between models of interest, and allows for better user interface
+#               includes option to output standard synth figures.
+#########################################
+
+rm(list=ls())
+generate_mean_predictors <- function(synth, var.list, b_time, i_time) {
+  for(i in 1:length(var.list)){
+    x <- sym(var.list[i])
+    synth <- synth %>% generate_predictor(time_window=b_time:i_time, !!x := mean(!!x, na.rm=TRUE))
+  }
+  synth
+}
+
+generate_lag_predictors <- function(synth, lag.vars){
+  ## parse lag.vars into two lists: var and year
+  vars <- lag.vars %>% 
+    sapply(str_split, "_") %>% 
+    sapply("[[", 1) %>% 
+    unname()
+  
+  years <- lag.vars %>% 
+    sapply(str_split, "_") %>% 
+    sapply("[[", 2) %>% 
+    sapply(strtoi) %>% 
+    unname()  
+  # loop through vars and build the predictor
+  for(i in 1:length(vars)){
+    x <- sym(vars[i])
+    y <- sym(lag.vars[i])
+    synth <- synth %>% generate_predictor(time_window=years[i], !!y := !!x)
+  }
+  synth
+}
+
+synth.out <- function(df, dep.var, i_unit, i_time, mean.vars, lag.vars) {
+  dep.var <- sym(dep.var) 
+  
+  b_time <- df %>% select(year) %>% min()
+  synth <- df %>%
+    # initial the synthetic control object
+    synthetic_control(outcome = !!dep.var, # outcome
+                      unit = state, # unit index in the panel data
+                      time = year, # time index in the panel data
+                      i_unit = i_unit, # unit where the intervention occurred
+                      i_time = i_time, # time period when the intervention occurred
+                      generate_placebos=TRUE # generate placebo synthetic controls (for inference)
+    ) %>% 
+    generate_mean_predictors(mean.vars, b_time, i_time) %>% 
+    generate_lag_predictors(lag.vars) %>%
+    generate_weights(optimization_window = b_time:i_time, margin_ipop = .02,sigf_ipop = 7,bound_ipop = 6 # optimizer options
+    ) %>%
+    # Generate the synthetic control
+    generate_control()
+}
+
+generate_synth <- function(model, dep.var, mean.vars, lag.vars, plots=FALSE){
+  
+  if(model == "ca"){
+    df <- read_csv(here("data/clean/working_data.csv")) %>% 
+      filter(ca_model == 1)
+    i_time <- 2015
+    i_unit <- "California"
+  } else if(model=="nc"){
+    df <- read_csv(here("data/clean/working_data.csv")) %>% 
+      filter(nc_model == 1)
+    i_time <- 2014
+    i_unit <- "North Carolina"
+  }
+  
+  s <- synth.out(df, dep.var, i_unit, i_time, mean.vars, lag.vars)
+  s %>% plot_trends()
+  
+  if(plots){
+    s %>% plot_trends() 
+    ggsave(here("figures", paste0(model, "_", dep.var, "_trend.jpeg")), 
+           width=7, height=7, units="in")
+    s %>% plot_differences()
+    ggsave(here("figures", paste0(model, "_", dep.var, "_diff.jpeg")), 
+           width=7, height=7, units="in")
+    s %>% plot_weights()
+    ggsave(here("figures", paste0(model, "_", dep.var, "_weights.jpeg")), 
+           width=7, height=7, units="in")
+    s %>% plot_placebos()
+    ggsave(here("figures", paste0(model, "_", dep.var, "_placebos.jpeg")), 
+           width=7, height=7, units="in")
+    }
+}
+
+
+######## Declare variables of interest ####################
+### Note: the population variables follow the convention pop_bmAGE
+### Where age is one of the following: U20, WA, 65o
+###########################################################
+
+dep.vars <- c("lab", "pov")
+# mean vars are the predictors based on pretreatment mean
+mean.vars <- c("rpcpi", "rpcgdp", "pop_bmWA", "pop_bfWA") 
+# lag vars are the predictors that match a specific year in the pretreatment period
+# use syntax "var_year"
+lag.vars.lab <- c("lab_2008", "lab_2010", "lab_2013")
+lag.vars.pov <- c("pov_2008", "pov_2010", "pov_2013")
+
+####################### RUN EVERYTHING TO HERE ######################### 
+############# Then, Run Some Models ####################
+generate_synth("ca", dep.vars[1], mean.vars, lag.vars.lab, plots = T)
+generate_synth("nc", dep.vars[1], mean.vars, lag.vars.lab, plots = T)
+generate_synth("ca", dep.vars[2], mean.vars, lag.vars.pov, plots = T)
+generate_synth("nc", dep.vars[2], mean.vars, lag.vars.pov, plots = T)
+
+
+
+
+
