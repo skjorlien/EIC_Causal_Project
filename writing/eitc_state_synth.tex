@@ -11,6 +11,7 @@
 \usepackage{xcolor}
 \usepackage{longtable}
 \usepackage{lscape}
+\usepackage{threeparttablex}
 
 
 % these packages play with the spacing/margins of the document. Uncomment the commands on lines 16 and 17 to see what they do.
@@ -63,6 +64,7 @@ The EITC is designed to “phase in” beginning with the first dollars a worker
     \begin{center}
         \includegraphics[width=.85\textwidth]{eitc_design}
     \end{center}
+	\footnotesize
     \label{fig:tax}{Source: Tax Policy Center}
 \end{figure}
 
@@ -70,15 +72,86 @@ Proponents of the EITC generally argue that it avoids the adverse incentives of 
 
 Because of the dual-pronged motivation of the EITC, most economists have been interested in studying the effects on poverty and labor supply. While the causal effects of the federal program can be difficult to discern, \cite{neumark2001using} found that the EITC effectively raised a number of households above the poverty line and positively increased the labor supply rate, particularly at the point of labor entry, finding it to be a more effective intervention than the minimum wage. Given the trapezoidal shape of the policy, economic theory would also suggest that it creates natural “kink points” in the earned income of workers.  \cite{saez2010taxpayers} finds some evidence that workers bunch at the phase-out kink point, but very little evidence that workers choose to reduce hours during the phase-in period. Meanwhile, since the EITC does not provide any benefit to individuals who are not working, it should have a direct impact on labor force participation decisions at the extensive margin (the decision to enter the workforce), but others have argued that the effect at the margins is negligible \citep{kleven2019eitc}. There is also some evidence that the incentives are obfuscated by the complicated nature of tax law \citep{chetty2013teaching}.
 
-While the EITC is available to single filers without children, the benefits afforded to those workers are relatively modest compared to the credit given to workers with dependents. Therefore, much of the literature has focused on the effects on low-income families, especially single mothers. Evans and Garthwaite found that indicators of health and self-reported well-being of single mothers both increased with the expansion of the federal credit in 1993 \cite{ evans2014giving}. Other papers have explored the EITC’s effect on birth rates \cite{baughman2003did}.
+While the EITC is available to single filers without children, the benefits afforded to those workers are relatively modest compared to the credit given to workers with dependents. Therefore, much of the literature has focused on the effects on low-income families, especially single mothers. \cite{ evans2014giving} found that indicators of health and self-reported well-being of single mothers both increased with the expansion of the federal credit in 1993. Other papers have explored the EITC’s effect on birth rates \citep{baughman2003did}.
 
-In the wake of the federal EITC and its various expansions, more than 25 states have adopted their own state-level EITCs to supplement low-income earners at the local level. State-level EITC’s generally function as a proportion of the federal credit, with a few exceptions (for example, Washington state has flat dollar amounts depending on household size). Amounts of state EITC vary significantly, from 5\% of the federal EITC amount (Louisiana) to 45\% (Maryland). We focus on the state-level EITCs that are refundable, meaning that even if a filer has no tax liability, they still receive a credit, effectively making their net tax amount negative. While some states offer non-refundable EITCs (meaning they can use the credit only to reduce their tax burden), we concentrate on the EITCs which function as a proper government cash transfer. All told, 23 states and the District of Columbia currently offer a state-level refundable EITC, and an additional 6 currently offer a non-refundable EITC.
+In the wake of the federal EITC and its various expansions, more than 25 states have adopted their own state-level EITCs to supplement low-income earners at the local level. State-level EITC’s generally function as a proportion of the federal credit, with a few exceptions (for example, Washington state has flat dollar amounts depending on household size). Amounts of state EITC vary significantly, from 5\% of the federal EITC amount (Louisiana) to 45\% (Maryland). We focus on the state-level EITCs that are refundable, meaning that even if a filer has no tax liability, they still receive a credit, effectively making their net tax amount negative. While some states offer non-refundable EITCs (meaning they can use the credit only to reduce their tax burden), we concentrate on the EITCs which function as a proper government cash transfer. All told, 23 states and the District of Columbia currently offer a state-level refundable EITC, and an additional 6 currently offer a non-refundable EITC, as seen in Table~\ref{fig:eitc_states}.
 
-[Table on states with EITC available]
+ \begin{longtable}[h]{lcc}
+\caption{States with EITC}\\
+ \hline
+\\[-1.8ex] 
+ State & \% of Federal EITC & Refundable \\ [0.5ex] 
+ \hline\hline \\[-1.8ex] 
+California$^{1}$ & Max $46.9\%$ & Yes \\
+\\[-1.8ex] 
+ Colorado & $10\%$ & Yes \\ 
+\\[-1.8ex] 
+ Connecticut & $23\%$ & Yes \\ 
+\\[-1.8ex] 
+ Delaware & $4.5\%$ & Yes \\ 
+\\[-1.8ex] 
+ Hawaii & $20\%$  & No \\ 
+\\[-1.8ex] 
+ Illinois & $18\%$ & Yes \\
+\\[-1.8ex] 
+ Indiana & $9\%$ & Yes \\
+\\[-1.8ex] 
+ Iowa & $15\%$ & Yes \\
+\\[-1.8ex] 
+ Kansas & $17\%$ & Yes\\ 
+\\[-1.8ex] 
+ Louisiana & $5\%$ & Yes \\
+\\[-1.8ex] 
+ Maine & $12\%$ & Yes \\
+\\[-1.8ex] 
+ Maryland & $45\%$ & Yes\\ 
+\\[-1.8ex] 
+ Massachusetts & $30\%$ & Yes\\
+\\[-1.8ex] 
+ Michigan & $6\%$ & Yes \\
+\\[-1.8ex] 
+ Minnesota$^{2}$ & $25\%$ to $45\%$ & Yes  \\
+\\[-1.8ex] 
+ Montana & $3\%$ & Yes  \\
+\\[-1.8ex] 
+ Nebraska & $10\%$ & Yes  \\
+\\[-1.8ex] 
+ New Jersey & $40\%$ & Yes \\
+\\[-1.8ex] 
+ New Mexico & $20\%$ & Yes \\
+\\[-1.8ex] 
+ New York & $30\%$ & Yes \\
+\\[-1.8ex] 
+ Ohio & $30\%$ & No \\
+\\[-1.8ex] 
+ Oklahoma & $5\%$ & Yes \\
+\\[-1.8ex] 
+ Oregon & $9\%$ & Yes \\
+\\[-1.8ex] 
+ Rhode Island & $15\%$ & Yes \\
+\\[-1.8ex] 
+ South Carolina & $83.33\%$ & No \\
+\\[-1.8ex] 
+ Utah & $15\%$ & No \\
+\\[-1.8ex] 
+ Vermont & $36\%$ & Yes \\
+\\[-1.8ex] 
+ Virginia & $20\%$ & No \\
+\\[-1.8ex] 
+ Wisconsin$^{2}$ & $4\%$ to $34\%$ & Yes \\
+\\[-1.8ex] 
+ District of Columbia & $55\%$ & Yes \\
+ \hline\\[-1.8ex] 
+\footnotesize $^{1}$Uses different income thresholds than federal EITC\\
+\footnotesize $^{2}$Percent changes by the number of children or income
+\label{fig:eitc_states}{}
+\end{longtable}
+
+
 
 While there is substantial research on the federal Earned Income Tax Credit, literature on the state-level EITCs is much sparser. \cite{baughman2012effects} found some evidence that state EITCs improved child health in those states. Others have looked at the relationship between state EITCs and suicide \citep{lenhart2019effects} and how to increase uptake of state-level EITC credits \citep{linos2020can}. We therefore endeavor to apply the changes in EITC in California and North Carolina. 
 
-In 2014, North Carolina eliminated its state-level EITC, the only state to do so in over 30 years. The eliminated benefit was modest, at 5\% of the federal EITC, but at the time of elimination, it was claimed by 22 percent of North Carolina residents. Conversely, in 2015, California created and implemented its first state EITC (CalEITC). This policy used thresholds independent of the federal EITC, with CalEITC credits available up to \$3,160 for a family with three children (nearly half of the available federal EITC credit at that level). The Public Policy Institute of California estimates that in the first year of creation, the CalEITC was claimed by 14\% of households in the state, with more than 90\% of claimants having dependent children. They also estimate that without both state and federal EITCs, 840,000 more Californians would be in poverty, including an estimated 376,000 children.  
+In 2014, North Carolina eliminated its state-level EITC, the only state to do so in over 30 years. The eliminated benefit was modest, at 5\% of the federal EITC, but at the time of elimination, it was claimed by 22 percent of North Carolina residents. Conversely, in 2015, California created and implemented its first state EITC (CalEITC). This policy uses thresholds independent of the federal EITC, with CalEITC credits available up to \$3,160 for a family with three children (nearly half of the available federal EITC credit at that level). The Public Policy Institute of California estimates that in the first year of creation, the CalEITC was claimed by 14\% of households in the state, with more than 90\% of claimants having dependent children. They also estimate that without both state and federal EITCs, 840,000 more Californians would be in poverty, including an estimated 376,000 children.  
 
 
 \section{Data}
@@ -89,7 +162,7 @@ In 2014, North Carolina eliminated its state-level EITC, the only state to do so
 
 \section{Results}
 
-In Figure~\ref{fig:series}, we compare how our synthetic California and North Carolina compare to their real counterparts in both labor force participation rate and poverty rate. Following the implementation of CalEITC in 2015, we see an increase in labor force participation (about half a percent) and a decrease poverty rate (less than 1\%), relative to our synthetic California. We also see a similar decrease in labor force participation following the elimination of North Carolina's EITC. However, the poverty rate in North Carolina is also below the synthetic level, bucking the economic theory. Figure~\ref{fig:weights} shows how the weights of our synthetic controls are generated. 
+In Figure~\ref{fig:series}, we compare how our synthetic California and North Carolina compare to their real counterparts in both labor force participation rate and poverty rate. Following the implementation of CalEITC in 2015, we see an increase in labor force participation (about half a percent) and a decrease poverty rate (about 1\%), relative to our synthetic California. We also see a similar decrease in labor force participation following the elimination of North Carolina's EITC. However, the poverty rate in North Carolina is also below the synthetic level, bucking the economic theory. Figure~\ref{fig:weights} shows how the weights of our synthetic controls are generated. 
 
 \newgeometry{margin=.5in}
 
@@ -121,7 +194,7 @@ In Figure~\ref{fig:series}, we compare how our synthetic California and North Ca
 
 \restoregeometry
 
-In order to test the significance of these results, we generate a series of placebos via synthetic control on the states in our control and compare the results as if these states had implemented a similar change in their EITC (either creation or elimination). These allows us to parse the effect from the noise and ask if our results are generated only by chance. This allows to compare the gap of synthetic North Carolina and California with the gaps generated in this process and chck if our results are actually meaningful.
+In order to test the significance of these results, we generate a series of placebos via synthetic control on the states in our control and compare the results as if these states had implemented a similar change in their EITC (either creation or elimination). These allows us to parse the effect from the noise and ask if our results are generated only by chance. This allows to compare the gap of real North Carolina and California with the gaps generated in this process and check if our results are actually meaningful.
 
 
 
@@ -133,7 +206,15 @@ In order to test the significance of these results, we generate a series of plac
     \label{fig:ca_pov_placebos}{}
 \end{figure}
 
-Figure~\ref{fig:ca_pov_placebos} shows a rather inconclusive result. While there is some decrease in poverty following the treatment, there is quite a bit of noise in both the pre-treatment period and in the placebos folllowing treatment. From this, it is difficult to draw any conclusions about CalEITC's impact on the poverty rate in California. 
+Figure~\ref{fig:ca_pov_placebos} shows a rather inconclusive result. While there is some decrease in poverty following the treatment, there is quite a bit of noise in both the pre-treatment period and in the placebos following treatment. From this, it is difficult to draw any conclusions about CalEITC's impact on the poverty rate in California. A similar result can be seen in Figure~\ref{fig:nc_pov_placebos}, which shows the gap in real North Carolina and the gaps for our synthetic placebos. Once again, there is not a discernably significant impact of the removal of the EITC, even if the directionality of the change in poverty would be the opposite of what economists would predict. 
+
+ \begin{figure}[H]
+    \caption{Poverty Gap in North Carolina and Poverty Placebo Gaps}
+    \begin{center}
+        \includegraphics[width=.85\textwidth]{nc_pov_placebos}
+    \end{center}
+    \label{fig:nc_pov_placebos}{}
+\end{figure}
 
 \section{Conclusions}
 
