@@ -63,7 +63,7 @@ plot_placeboos <- function(data,time_window=NULL,prune_level=2){
       dplyr::pull(unit_name)
     
     plot_data <- plot_data %>% dplyr::filter(.id %in% retain_)
-    caption <- "Pruned all placebo cases with a pre-period RMSPE exceeding two times the treated unit's pre-period RMSPE."
+    caption <- paste0("Pruned all placebo cases with a pre-period RMSPE exceeding ", as.english(prune_level), " times the treated unit's pre-period RMSPE.")
   }
   
   # Generate plot
@@ -97,6 +97,15 @@ generate_pop_vars <- function(){
         out <- out %>% append(paste0(pref, race[i], sex[j], age[k]))
       }
     }
+  }
+  unlist(out)
+}
+
+generate_lag_vars <- function(v, r){
+  out <- list()
+  print(r)
+  for(i in 1:length(r)){
+    out <- out %>% append(paste(v, r[i], sep = "_"))
   }
   unlist(out)
 }
@@ -181,7 +190,16 @@ generate_synth <- function(model, dep.var, mean.vars, lag.vars, dir.name, plots=
     s %>% plot_placeboos(prune_level = prune_level)
     ggsave(here("figures/", paste0(dir.name, "/", model, "_", dep.var, "_placebos.jpeg")), 
            width=7, height=7, units="in")
-    }
+  }
+  # tname <- paste0(model, "_", dep.var)
+  # s %>% grab_balance_table() %>% 
+  #   column_to_rownames(var="variable") %>% 
+  #   mutate(across(everything(), as.numeric),
+  #          across(everything(), round, 2)) %>% 
+  #   stargazer(type="latex", summary=FALSE, 
+  #              title=tname, 
+  #              label=paste0("tab:", tname),
+  #              out=file.path(here("tables"), paste0(tname, ".tex")))
 }
 
 
@@ -192,27 +210,28 @@ generate_synth <- function(model, dep.var, mean.vars, lag.vars, dir.name, plots=
 dep.vars <- c("lab", "pov")
 
 # mean vars are the predictors based on pretreatment mean
-mean.vars.lab.ca <- c("rpcpi", "rpcgdp", "density", "pop_bf65o", "pop_nfWA", "pop_bfWA", "pop_nm65o")
-mean.vars.pov.ca <- c("rpcpi", "rpcgdp", "density", "pop_bmU20", "pop_bfU20", "pop_bmWA", "pop_wm65o")
-mean.vars.lab.nc <- c("rpcpi", "rpcgdp", "density", "pop_nfU20", "pop_nmU20", "pop_nf65o", "pop_nfWA")
-mean.vars.pov.nc <- c("rpcpi", "rpcgdp", "density", "pop_nfU20", "pop_nmU20", "pop_nfWA", "pop_nmWA")
+mean.vars.lab.ca <- c("rpcpi", "density", "pop_wmU20", "pop_nm65o", "pop_wmWA", "pop_wfWA")
+mean.vars.pov.ca <- c("rpcpi", "density", "pop_wfWA", "pop_wmWA", "pop_nf65o")
+mean.vars.lab.nc <- c("rpcpi", "rpcgdp", "density", "pop_nfU20", "pop_nmU20", "pop_nf65o", "pop_wfWA")
+mean.vars.pov.nc <- c("rpcpi", "rpcgdp", "density", "pop_wfWA", "pop_nfWA", "pop_wmWA", "pop_nf65o")
 
 
 # lag vars are the predictors that match a specific year in the pre-treatment period
 # use syntax "var_year"
+
 lag.vars.lab.ca <- c("lab_2008", "lab_2011", "lab_2015")
-lag.vars.pov.ca <- c("pov_2008", "pov_2011", "pov_2015")
-lag.vars.lab.nc <- c("lab_2008", "lab_2011", "lab_2014")
-lag.vars.pov.nc <- c("pov_2008", "pov_2011", "pov_2014")
+lag.vars.pov.ca <- generate_lag_vars("pov", 2010:2015)
+lag.vars.lab.nc <- c("lab_2008", "lab_2012", "lab_2009", "lab_2014", "lab_2011")
+lag.vars.pov.nc <- c("pov_2008", generate_lag_vars("pov", 2010:2014))
+
 
 ####################### RUN EVERYTHING TO HERE ######################### 
 ####################### Then, Run Some Models ##########################
-dir.name <- "0_refundable_trimed_prune_5"
-generate_synth("ca", dep.vars[1], mean.vars.lab.ca, lag.vars.lab.ca, dir.name, plots = T, prune_level = 5)
-generate_synth("nc", dep.vars[1], mean.vars.lab.nc, lag.vars.lab.nc, dir.name, plots = T, prune_level = 5)
+dir.name <- "final"
+generate_synth("ca", dep.vars[1], mean.vars.lab.ca, lag.vars.lab.ca, dir.name, plots = T, prune_level = 2)
 generate_synth("ca", dep.vars[2], mean.vars.pov.ca, lag.vars.pov.ca, dir.name, plots = T, prune_level = 5)
+generate_synth("nc", dep.vars[1], mean.vars.lab.nc, lag.vars.lab.nc, dir.name, plots = T, prune_level = 2)
 generate_synth("nc", dep.vars[2], mean.vars.pov.nc, lag.vars.pov.nc, dir.name, plots = T, prune_level = 5)
-
 
 
 # ## Optimal Mean Predictors for EITC Model ##
@@ -223,7 +242,7 @@ generate_synth("nc", dep.vars[2], mean.vars.pov.nc, lag.vars.pov.nc, dir.name, p
 
 
 ### Optimal Mean Predictors for refundable EITC Model ##
-# mean.vars.lab.ca <- c("rpcpi", "rpcgdp", "density", "pop_bf65o", "pop_nfWA", "pop_bfWA", "pop_nm65o")
-# mean.vars.pov.ca <- c("rpcpi", "rpcgdp", "density", "pop_bmU20", "pop_bfU20", "pop_bmWA", "pop_wm65o")
-# mean.vars.lab.nc <- c("rpcpi", "rpcgdp", "density", "pop_nfU20", "pop_nmU20", "pop_nf65o", "pop_nfWA")
-# mean.vars.pov.nc <- c("rpcpi", "rpcgdp", "density", "pop_nfU20", "pop_nmU20", "pop_nfWA", "pop_nmWA")
+# mean.vars.lab.ca <- c("rpcpi", "density", "pop_wmU20", "pop_nm65o", "pop_wmWA", "pop_wfWA")
+# mean.vars.pov.ca <- c("rpcpi", "density", "pop_wfWA", "pop_wmWA", "pop_nf65o")
+# mean.vars.lab.nc <- c("rpcpi", "rpcgdp", "density", "pop_nfU20", "pop_nmU20", "pop_nf65o", "pop_wfWA")
+# mean.vars.pov.nc <- c("rpcpi", "rpcgdp", "density", "pop_wfWA", "pop_nfWA", "pop_wmWA", "pop_nf65o")

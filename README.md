@@ -77,19 +77,10 @@ Lott & Mustard RPCs
 - rpcui - real per capita Unemployment insurance
 - rpcpo - real per capita retirement payments per person over 65
 
-## Next Steps: 
- ### Scott:
-
-- Join working_dataset.csv with brandon's file on EITC
-
- ### Brandon:
-
-- Do that Lit Review
-
 
 ## Wish List? 
 
 - If this project yields interesting results neat: Augmented Synthetic Control Ridge ASCM
- 
+- Don't get demographic data from SEER- get it from the ACS. 
 
 

@@ -3,7 +3,7 @@ import os
 import pandas as pd
 
 '''
-API Documentation: https://apps.bea.gov/api/_pdf/bea_web_service_api_user_guide.pdf
+API Documentation: https://apps.bea.gov/api/_pdf/bea_wBEAeb_service_api_user_guide.pdf
 '''
 
 KEY = "3C0AF681-9E8B-4CCB-B508-19B8CD02FCE7"

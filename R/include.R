@@ -22,6 +22,8 @@ librarian::shelf(
   haven,
   snakecase,
   sandwich,
+  beepr,
+  english,
   lmtest,
   gganimate,
   gapminder,
